@@ -1,0 +1,39 @@
+<div class="container"
+  fxLayout="column"
+  fxLayoutGap="10px">
+
+  <div fxFlex>
+    <div>
+        <h3>Contact Us</h3>
+        <hr>
+    </div>
+  </div>
+
+  <div fxFlex>
+    <h3>Location Information</h3> 
+    <div fxLayout="column" fxLayout.gt-sm="row">
+        <!--fxFlex 50 means occupy 50%of screen and flexOffsset means 20 px margin to left-->
+      <div fxFlex="50" fxFlexOffset="20px">
+        <h4>Our Address</h4>
+        <address>
+          121, Clear Water Bay Road<br>
+          Clear Water Bay, Kowloon<br>
+          HONG KONG<br>
+          <fa-icon [icon]="faPhone" size="lg"></fa-icon>: +852 1234 5678<br>
+          <fa-icon [icon]="faFax" size="lg"></fa-icon>: +852 8765 4321<br>
+          <fa-icon [icon]="faEnvelope" size="lg"></fa-icon>: 
+                <a href="mailto:confusion@food.net">confusion@food.net</a>
+        </address>
+        <p></p>
+        <div>
+          <a mat-raised-button href="tel:+85212345678"> <fa-icon [icon]="faPhone" size="lg"></fa-icon> Call</a>
+          <a mat-raised-button> <fa-icon [icon]="faSkype" size="lg"></fa-icon> Skype</a>
+          <a mat-raised-button href="mailto:confusion@food.net"> <fa-icon [icon]="faEnvelope" size="lg"></fa-icon> Email</a>
+        </div>
+        </div>
+      <div fxFlex="40">
+        <h4>Map of our Location</h4>
+      </div>
+    </div>
+  </div>
+</div>

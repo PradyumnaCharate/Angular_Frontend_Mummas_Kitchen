@@ -99,7 +99,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "./node_modules/font-awesome/scss/font-awesome"
+              
             ],
             "scripts": []
           }

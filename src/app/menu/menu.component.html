@@ -16,8 +16,10 @@ so column is part of that.dont confuse it wiwth bootstrap.10px gap between colum
             which is structural directive to iterate over array elements instead of writing all elememts
         Also matList Avatar is like img src from material ui used for list item img and matLine created linewise view.
         {{}} this is called as interpolation
-    2.After updating to mat-grid-tile it is type of grid.and we have used build in angular pipe to show name in uppercase-->
-            <mat-grid-tile *ngFor="let dish of dishes">
+    2.After updating to mat-grid-tile it is type of grid.and we have used build in angular pipe to show name in uppercase
+    3.This (click) is example of event data binding.when we click on tile of specific dish then event will be trigeered
+and onSelect method will be callled and dish which is clicked will be provided as parameter-->
+            <mat-grid-tile *ngFor="let dish of dishes" (click)="onSelect(dish)">
                 <img height="200px" src={{dish.image}} alt={{dish.name}}>
                 <mat-grid-tile-footer>
                     <h1 matLine>{{dish.name | uppercase}} </h1>
@@ -26,6 +28,7 @@ so column is part of that.dont confuse it wiwth bootstrap.10px gap between colum
             </mat-grid-tile>
         </mat-grid-list>
     </div>
-    <app-dishdetail></app-dishdetail>
+    <!--This is example of property attribute type of data binding-->
+    <app-dishdetail [dish]="selectedDish"></app-dishdetail>
     
 </div>
