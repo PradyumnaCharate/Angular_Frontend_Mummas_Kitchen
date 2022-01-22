@@ -9,4 +9,4 @@ export class Comment{
         this.author=comment;
         this.date=date;
     }
-}
+};

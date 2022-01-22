@@ -2,9 +2,11 @@
     <span><img src="/assets/images/logo.png" height=30 width=41></span>
     
     <a mat-button routerLink="/home" routerLinkActive="active"><fa-icon [icon]="faHome" size="lg"></fa-icon> Home</a>
-    <a mat-button><fa-icon [icon]="faInfo"size="lg"></fa-icon> About</a>
+    <a mat-button routerLink="/aboutus"><fa-icon [icon]="faInfo"size="lg"></fa-icon> About</a>
     <a mat-button routerLink="/menu" routerLinkActive="active"><fa-icon [icon]="faList" size="lg"></fa-icon> Menu</a>
     <a mat-button routerLink="/contactus" routerLinkActive="active"><fa-icon [icon]="faAdressCard" size="lg"></fa-icon> Contact</a>
+    <span class="flex-spacer"></span>
+    <a mat-button (click)="openLoginForm()"><fa-icon [icon]="faSignIn" size="lg"></fa-icon> Login</a>
   </mat-toolbar>
   
   <div class="container jumbotron"

@@ -18,8 +18,10 @@ so column is part of that.dont confuse it wiwth bootstrap.10px gap between colum
         {{}} this is called as interpolation
     2.After updating to mat-grid-tile it is type of grid.and we have used build in angular pipe to show name in uppercase
     3.This (click) is example of event data binding.when we click on tile of specific dish then event will be trigeered
-and onSelect method will be callled and dish which is clicked will be provided as parameter-->
-            <mat-grid-tile *ngFor="let dish of dishes" (click)="onSelect(dish)">
+and onSelect method will be callled and dish which is clicked will be provided as parameter
+    4.Instead of click and then invokimng method we now will redirect to dishdetail component on click..
+    passing id as route paramter-->
+            <mat-grid-tile *ngFor="let dish of dishes" [routerLink]="['/dishdetail',dish.id]">
                 <img height="200px" src={{dish.image}} alt={{dish.name}}>
                 <mat-grid-tile-footer>
                     <h1 matLine>{{dish.name | uppercase}} </h1>
@@ -29,6 +31,6 @@ and onSelect method will be callled and dish which is clicked will be provided a
         </mat-grid-list>
     </div>
     <!--This is example of property attribute type of data binding-->
-    <app-dishdetail [dish]="selectedDish"></app-dishdetail>
+    
     
 </div>
