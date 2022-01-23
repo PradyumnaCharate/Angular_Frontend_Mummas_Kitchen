@@ -11,6 +11,7 @@
 
   <div fxFlex>
     <h3>Location Information</h3> 
+    
     <div fxLayout="column" fxLayout.gt-sm="row">
         <!--fxFlex 50 means occupy 50%of screen and flexOffsset means 20 px margin to left-->
       <div fxFlex="50" fxFlexOffset="20px">
@@ -35,5 +36,49 @@
         <h4>Map of our Location</h4>
       </div>
     </div>
+  </div>
+  <div fxFlex fxFlexOffset="20px" class="form-size">
+    <h3>Send Us Your Feedback</h3>
+    <p>{{ feedbackForm.value | json }} {{ feedbackForm.status | json }}</p>
+    <form novalidate  [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
+      <!--formGroup means tie to reactive form model in component-->
+      <p>
+        <mat-form-field class="half-width">
+          <input matInput formControlName="firstname" placeholder="First Name" type="text" required>
+        </mat-form-field>
+        <mat-form-field class="half-width">
+          <input matInput formControlName="lastname" placeholder="Last Name" type="text" required>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field class="half-width">
+          <input matInput formControlName="telnum" placeholder="Telephone No." type="tel" required>
+        </mat-form-field>
+        <mat-form-field class="half-width">
+          <input matInput formControlName="email" placeholder="Email" type="email" required>
+        </mat-form-field>
+      </p>
+      <!--table to position fields..flex is hard to use here to position-->
+      <table class="form-size">
+        <td>
+          <mat-slide-toggle formControlName="agree">May we contact you?</mat-slide-toggle>
+        </td>
+        <td>
+          <mat-select placeholder="How?" formControlName="contacttype">
+            <mat-option *ngFor="let ctype of contactType" [value]="ctype">
+              {{ ctype }}
+            </mat-option>
+          </mat-select>
+        </td>
+        </table>
+        <p>
+          <mat-form-field class="full-width"><textarea matInput formControlName="message" placeholder="Your Feedback" rows=12>
+
+          </textarea></mat-form-field>
+        </p>
+        <button type="submit" mat-button class="background-primary text-floral-white" >Submit</button>
+
+      
+    </form>
   </div>
 </div>

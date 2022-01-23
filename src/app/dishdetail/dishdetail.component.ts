@@ -26,7 +26,8 @@ export class DishdetailComponent implements OnInit {
   ngOnInit(): void {
     //activated route .snpashot.parmas is array of params and we can acess our param by name
     let id=this.route.snapshot.params["id"];
-    this.dish=this.dishService.getDish(id);
+    this.dishService.getDish(id)
+    .then((dish)=>this.dish=dish);
   }
   goBack():void{
     //this is location packages method helps to go to back page in history

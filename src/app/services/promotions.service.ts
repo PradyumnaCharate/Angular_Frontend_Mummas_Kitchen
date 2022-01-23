@@ -5,15 +5,15 @@ import { PROMOTIONS } from '../shared/promotions';
   providedIn: 'root'
 })
 export class PromotionsService {
-  getPromotions():Promotion[]{
-    return PROMOTIONS;
+  getPromotions():Promise<Promotion[]>{
+    return Promise.resolve(PROMOTIONS);
 
   }
-  getPromotion(id:string):Promotion{
-    return PROMOTIONS.filter((promotion)=>promotion.id===id)[0];
+  getPromotion(id:string):Promise<Promotion>{
+    return Promise.resolve(PROMOTIONS.filter((promotion)=>promotion.id===id)[0]);
   }
-  getFeatured():Promotion{
-    return PROMOTIONS.filter((promotion)=>promotion.featured==true)[0];
+  getFeatured():Promise<Promotion>{
+    return Promise.resolve(PROMOTIONS.filter((promotion)=>promotion.featured==true)[0]);
   }
   constructor() { }
 }
