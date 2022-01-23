@@ -10,7 +10,7 @@ so column is part of that.dont confuse it wiwth bootstrap.10px gap between colum
         </div>
     </div>
     <!--mat-list is angular material list component.Applying fxFlex will treat this list as single unit -->
-    <div fxFlex>
+    <div fxFlex *ngIf="dishes">
         <mat-grid-list cols="2" rowHeight="200px">
             <!--1.We have created array of Dish objects.So here we have used *ngFor 
             which is structural directive to iterate over array elements instead of writing all elememts
@@ -31,6 +31,11 @@ and onSelect method will be callled and dish which is clicked will be provided a
         </mat-grid-list>
     </div>
     <!--This is example of property attribute type of data binding-->
+    <!--If dishes is not null then above part will be shown otherwise if null then show loading-->
+    <div [hidden]="dishes"> 
+        <mat-spinner></mat-spinner><h4>Loading....Please Wait</h4>
+
+    </div>
     
     
 </div>

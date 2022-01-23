@@ -27,6 +27,10 @@
         </mat-card>
       </div>
   </div>
+  <div [hidden]="dish"> 
+    <mat-spinner></mat-spinner><h4>Loading....Please Wait</h4>
+
+</div>
 
   <div fxFlex="40">
     
@@ -38,6 +42,10 @@
             <div matLine>{{"-- "+comment.author + " "}}{{comment.date | date}}</div>  
         </mat-list-item>
     </mat-list>
+    <div [hidden]="dish"> 
+      <mat-spinner></mat-spinner><h4>Loading....Please Wait</h4>
+
+  </div>
   </div>
 
 </div>
