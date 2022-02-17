@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 //to retrieve rouute paramter
 import { Params,ActivatedRoute } from "@angular/router";
 import {Location} from "@angular/common";
@@ -30,6 +30,7 @@ export class DishdetailComponent implements OnInit {
     faChevronRight=faChevronRight;
     commentForm!: FormGroup;
     comment!:Comment;
+    errMsg?:string;
     formErrors: { [key: string]: any } = {
       'author': '',
       'comment': ''
@@ -48,7 +49,7 @@ export class DishdetailComponent implements OnInit {
       }
     };
 
-  constructor(private dishService:DishService,private location:Location,private route:ActivatedRoute,private fb:FormBuilder) {
+  constructor(private dishService:DishService,private location:Location,private route:ActivatedRoute,private fb:FormBuilder,@Inject('baseUrl') public baseUrl:any) {
     this.createForm();
     
 
@@ -65,7 +66,7 @@ export class DishdetailComponent implements OnInit {
     //to that observable and then we are equating to this.dish .
     //And each time dish changes we also change prev and next.
     this.route.params.pipe(switchMap((params:Params)=>this.dishService.getDish(params["id"])) )
-      .subscribe(dish => {this.dish = dish; this.setPrevNext(dish.id);});
+      .subscribe(dish => {this.dish = dish; this.setPrevNext(dish.id);},errmsg=>this.errMsg=<any>errmsg);
   }
 
   createForm():void{
