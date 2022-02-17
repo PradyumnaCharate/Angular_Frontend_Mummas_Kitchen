@@ -6,7 +6,10 @@ import { Dish } from '../shared/dish';
 //to get specific dish
 import { DishService } from '../services/dish.service';
 import { switchMap } from 'rxjs/operators';
+import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 import { faChevronLeft,faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { Comment } from '../shared/comment';
+import { DISHES } from "../shared/dishes";
 
 
 
@@ -25,8 +28,28 @@ export class DishdetailComponent implements OnInit {
     next!:string;
     faChevronLeft=faChevronLeft;
     faChevronRight=faChevronRight;
+    commentForm!: FormGroup;
+    comment!:Comment;
+    formErrors: { [key: string]: any } = {
+      'author': '',
+      'comment': ''
+    };
+  
+    validationMessages: { [key: string]: any } = {
+      
+      'author': {
+        'required':      'Name is required.',
+        'minlength':     'Name must be at least 2 characters long.',
+        'maxlength':     'FirstName cannot be more than 25 characters long.'
+      },
+      'comment': {
+        'required':      'Comment is required.',
+        'minlength':     'Comment must be at least 2 characters long.'
+      }
+    };
 
-  constructor(private dishService:DishService,private location:Location,private route:ActivatedRoute) {
+  constructor(private dishService:DishService,private location:Location,private route:ActivatedRoute,private fb:FormBuilder) {
+    this.createForm();
     
 
     
@@ -40,9 +63,26 @@ export class DishdetailComponent implements OnInit {
     //according to it instantly and directly.mapping params observable into another observable which is going 
     //and fetching dish from service and making that available as observable and then we are subscribing
     //to that observable and then we are equating to this.dish .
+    //And each time dish changes we also change prev and next.
     this.route.params.pipe(switchMap((params:Params)=>this.dishService.getDish(params["id"])) )
       .subscribe(dish => {this.dish = dish; this.setPrevNext(dish.id);});
   }
+
+  createForm():void{
+    this.commentForm=this.fb.group({
+      //to validate put this into array and specify validations
+      author: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)] ],
+      comment: ['', [Validators.required, Validators.minLength(2)] ],
+      rating:5
+
+    });
+    this.commentForm.valueChanges
+    .subscribe(data => this.onValueChanged(data));
+    
+    this.onValueChanged();
+
+  }
+
   goBack():void{
     //this is location packages method helps to go to back page in history
     this.location.back();
@@ -54,6 +94,39 @@ export class DishdetailComponent implements OnInit {
     this.next = this.dishIds[(this.dishIds.length + index + 1) % this.dishIds.length];
 
 
+  }
+  onValueChanged(data?:any){
+    if (!this.commentForm) { return; }
+    const form = this.commentForm;
+    for (const field in this.formErrors) {
+      if (this.formErrors.hasOwnProperty(field)) {
+        // clear previous error message (if any)
+        this.formErrors[field ] = '';
+        const control = form.get(field);
+        if (control && control.dirty && !control.valid) {
+          const messages = this.validationMessages[field];
+          for (const key in control.errors) {
+            if (control.errors.hasOwnProperty(key)) {
+              this.formErrors[field] += messages[key] + ' ';
+            }
+          }
+        }
+      }
+    }
+  }
+  onSubmit(id:any){
+    this.comment=this.commentForm.value;
+    const d = new Date();
+    this.comment.date = d.toISOString();
+    DISHES[id].comments.push(this.comment)
+    
+    //reset to initial state
+    this.commentForm.reset({
+      author: '',
+      comment: '',
+      rating: 5,
+
+    });
   }
 
 }

@@ -50,6 +50,32 @@
       <mat-spinner></mat-spinner><h4>Loading....Please Wait</h4>
 
   </div>
+  <div class="form-size">
+    <h3>Send Us Your Comment</h3>
+    <p *ngIf="commentForm.status === 'VALID'">{{ commentForm.value.comment | json }} </p>
+    <p *ngIf="commentForm.status === 'VALID'">{{ commentForm.value.rating + " stars" | json }} </p>
+    <p *ngIf="commentForm.status === 'VALID'">{{ "-- "+ commentForm.value.author | json }}</p>
+    <form novalidate  [formGroup]="commentForm" (ngSubmit)="onSubmit(dish.id)">
+      <!--formGroup means tie to reactive form model in component-->
+      <p>
+        <mat-form-field class="full-width">
+          <input matInput formControlName="author" placeholder="Name" type="text" required>
+          <mat-error *ngIf="formErrors['author']">{{formErrors['author']}}</mat-error>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-slider formControlName="rating" min="1" max="5" step="1" value="1" thumbLabel tickInterval="1"></mat-slider>
+      </p>
+      <p>
+        <mat-form-field class="full-width"><textarea matInput formControlName="comment" placeholder="Your Comment" rows=12>
+
+        </textarea></mat-form-field>
+      </p>
+      <button [disabled]= "commentForm.invalid" type="submit" mat-button class="background-primary text-floral-white" >Submit</button>
+
+      
+    </form>
+  </div>
   </div>
 
 </div>

@@ -6,7 +6,7 @@ export class Comment{
     constructor(rating:number,comment:string,author:string,date:string){
         this.rating=rating;
         this.comment=comment;
-        this.author=comment;
+        this.author=author;
         this.date=date;
     }
 };
